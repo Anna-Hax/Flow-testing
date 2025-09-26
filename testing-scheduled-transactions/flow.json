@@ -20,6 +20,13 @@
 				"type": "file",
 				"location": "emulator-account.pkey"
 			}
+		},
+		"testnet": {
+			"address": "ac5b1841720e845a",
+			"key": {
+				"type": "file",
+				"location": "testnet.pkey"
+			}
 		}
 	}
 }
