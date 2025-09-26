@@ -12,8 +12,7 @@ access(all) contract SimpleScheduledMarketplace {
     access(all) event AuctionCompleted(itemID: UInt64, winner: Address?, finalPrice: UFix64)
     access(all) event Cancelled(itemID: UInt64, seller: Address)
 
-    // Fee + Owner
-    access(all) let feePercent: UFix64
+    // Owner only
     access(all) var owner: Address
 
     // Listing (value type). We update by replacing the whole struct.
@@ -61,9 +60,8 @@ access(all) contract SimpleScheduledMarketplace {
     access(contract) var nextListingID: UInt64
 
     // Init
-    init(feePercent: UFix64) {
+    init() {
         self.owner = self.account.address
-        self.feePercent = feePercent
         self.itemsForSale = {}
         self.nextListingID = 1
         self.bidVaults <- {}
@@ -151,8 +149,6 @@ access(all) contract SimpleScheduledMarketplace {
                 endTime: listing.endTime
             )
             self.itemsForSale[listingID] = updated
-            // listing.setCurrentBid(newBid: bidAmount)
-            // listing.setHighestBidder(newBidder: bidder)
 
             emit BidPlaced(itemID: listingID, bidder: bidder, amount: bidAmount)
         }
@@ -219,20 +215,12 @@ access(all) contract SimpleScheduledMarketplace {
         let winningVault <- self.bidVaults.remove(key: listingID) ?? panic("Winning bid vault not found")
 
         let finalAmount: UFix64 = winningVault.balance
-        let fee: UFix64 = finalAmount * self.feePercent
-        let sellerAmount: UFix64 = finalAmount - fee
 
-        let ownerReceiver = getAccount(self.owner).capabilities.borrow<&{FungibleToken.Receiver}>(/public/flowTokenReceiver)
-            ?? panic("Owner's FlowToken receiver not found")
         let sellerReceiver = getAccount(listing.seller).capabilities.borrow<&{FungibleToken.Receiver}>(/public/flowTokenReceiver)
             ?? panic("Seller's FlowToken receiver not found")
 
-        if fee > 0.0 {
-            let feeVault <- winningVault.withdraw(amount: fee)
-            ownerReceiver.deposit(from: <- feeVault)
-        }
-        if sellerAmount > 0.0 {
-            let sellerVault <- winningVault.withdraw(amount: sellerAmount)
+        if finalAmount > 0.0 {
+            let sellerVault <- winningVault.withdraw(amount: finalAmount)
             sellerReceiver.deposit(from: <- sellerVault)
         }
 

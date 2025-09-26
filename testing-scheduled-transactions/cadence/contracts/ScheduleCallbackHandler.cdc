@@ -1,7 +1,7 @@
 import FlowTransactionScheduler from 0x8c5303eaa26202d6
 import SimpleScheduledMarketplace from 0xac5b1841720e845a
 
-access(all) contract AuctionCallbackHandler {
+access(all) contract ScheduleCallbackHandler {
 
     access(all) struct loradata{
         access(all) let listingId: UInt64
@@ -18,12 +18,12 @@ access(all) contract AuctionCallbackHandler {
             let data = data as! loradata
             let listingID = data.listingId
             if listingID == nil {
-                log("AuctionCallbackHandler.executeCallback: no listingID provided in callback data. callback id: ".concat(id.toString()))
+                log("ScheduleCallbackHandler.executeCallback: no listingID provided in callback data. callback id: ".concat(id.toString()))
                 return
             }
 
             SimpleScheduledMarketplace.completeAuction(listingID: listingID!)
-            log("AuctionCallbackHandler.executeCallback: completed auction for listing ".concat(listingID!.toString()).concat(" callback id: ").concat(id.toString()))
+            log("ScheduleCallbackHandler.executeCallback: completed auction for listing ".concat(listingID!.toString()).concat(" callback id: ").concat(id.toString()))
         }
     }
 
