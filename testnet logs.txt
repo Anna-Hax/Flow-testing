@@ -1,0 +1,569 @@
+================================================ creating accounts on testnet and funding using faucet online========================
+
+D:\MDG\FLOwww\Flow-testing\testing-scheduled-transactions>flow accounts create
+Enter an account name
+
+> testnet-1 
+
+Choose a network
+
+  Emulator
+> Testnet
+  Mainnet
+
+
+ New account created with address 0x5542f6363675f0cd and name testnet-1 on Testnet network.
+
+Here’s a summary of all the actions that were taken:
+ - Added the new account to flow.json.
+ - Saved the private key to testnet-1.pkey.
+ - Added testnet-1.pkey to .gitignore.
+
+
+If you would like to fund the account with 1000 FLOW tokens for testing, visit https://testnet-faucet.onflow.org/fund-account?address=5542f6363675f0cd
+
+Address  0x5542f6363675f0cd
+Balance  0.00200000
+Keys     1
+
+Key 0   Public Key               b53f691c4a12cde5d80a7e5c84f6e4b60115ff1f924ad55d415f9537f9a58a94ae997138ba2bcf0294fe40c2134fac0f60baf69d5bea24a0eb6748e879c7de8d
+        Weight                   1000
+        Signature Algorithm      ECDSA_P256
+        Hash Algorithm           SHA3_256
+        Revoked                  false
+        Sequence Number          0
+        Index                    0
+
+Contracts Deployed: 0
+
+
+Contracts (hidden, use --include contracts)
+
+
+D:\MDG\FLOwww\Flow-testing\testing-scheduled-transactions>flow accounts create
+Enter an account name
+
+> testnet-2 
+
+Choose a network
+
+> Testnet
+  Mainnet
+  Emulator
+
+
+ New account created with address 0xb1254feb278ff012 and name testnet-2 on Testnet network.
+
+Here’s a summary of all the actions that were taken:
+ - Added the new account to flow.json.
+ - Saved the private key to testnet-2.pkey.
+ - Added testnet-2.pkey to .gitignore.
+
+
+If you would like to fund the account with 1000 FLOW tokens for testing, visit https://testnet-faucet.onflow.org/fund-account?address=b1254feb278ff012
+
+Address  0xb1254feb278ff012
+Balance  0.00200000
+Keys     1
+
+Key 0   Public Key               449ca365839338d7de2f644f0c6bd9e3969f7807af2ca47538d69f968a828dbda9b05c8bab85ca08d606c5573327ebecb780363d3d13bbd0909534a96654fb7a
+        Weight                   1000
+        Signature Algorithm      ECDSA_P256
+        Hash Algorithm           SHA3_256
+        Revoked                  false
+        Sequence Number          0
+        Index                    0
+
+Contracts Deployed: 0
+
+
+Contracts (hidden, use --include contracts)
+
+
+D:\MDG\FLOwww\Flow-testing\testing-scheduled-transactions>
+
+
+========================================= deploying on testnet ================================
+
+Deploying 2 contracts for accounts: testnet
+
+SimpleNFT -> 0xac5b1841720e845a (5a4e78a150125c7acf6da119852f22d3700e2a4434e61ec63830c1b7d8e2a143) 
+ Failed to deploy contract SimpleScheduledMarketplace: failed to deploy contract SimpleScheduledMarketplace: [Error Code: 1101] error caused by: 1 error occurred:
+        * transaction execute failed: [Error Code: 1101] cadence runtime error: Execution failed:
+error: cannot deploy invalid contract
+ --> 8cd07c9cce6936d47d5809271787e31c6b7917559a4ee5f53cc59d4e381d2e71:4:3
+  |
+4 |                     signer.contracts.add(name: name, code: code.utf8 ,arg0)
+  |                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+error: cannot find declaration `SimpleNFT` in `c6e616f1e50fcfab.SimpleNFT`
+ --> ac5b1841720e845a.SimpleScheduledMarketplace:4:7
+  |
+4 | import SimpleNFT from 0xc6e616f1e50fcfab //from 0x0095f13a82f1a835
+  |        ^^^^^^^^^ available exported declarations are:
+
+
+  See documentation at: https://cadence-lang.org/docs/language/imports
+
+Was this error unhelpful?
+Consider suggesting an improvement here: https://github.com/onflow/cadence/issues.
+
+
+
+ Command Error: failed deploying all contracts
+
+
+============================== lmao forgot to add testnet addresses ====================================
+
+D:\MDG\FLOwww\Flow-testing\testing-scheduled-transactions>flow project deploy -n testnet
+
+Deploying 1 contracts for accounts: testnet
+
+SimpleScheduledMarketplace -> 0xac5b1841720e845a (7ec856de9b8843b88e45143fd7ca67175b30b775603be3f1b76b9c5597c5935a) 
+
+ All contracts deployed successfully
+
+D:\MDG\FLOwww\Flow-testing\testing-scheduled-transactions>flow project deploy -n testnet
+
+Deploying 1 contracts for accounts: testnet
+
+ScheduleCallbackHandler -> 0xac5b1841720e845a (f6262ccbc30bf0de35da95afbec36c0c698585829f5721952f4f3db4921e1a13)
+
+ All contracts deployed successfully
+
+
+
+================================================== creating collections on both accounts ================================================
+
+D:\MDG\FLOwww\Flow-testing\testing-scheduled-transactions>flow transactions send ./cadence/transactions/EmptyCollection.cdc --signer testnet-1 -n testnet
+Transaction ID: a9e3b330151116d4d8cbe39d407a5156e559d1ed0c6b7551ac816d0cc42f7b9f
+
+Block ID        77bbca82485cd9c61cbc722784da0489b60cc80fabb53d9802661915592cfff7
+Block Height    281735282
+Status           SEALED
+ID              a9e3b330151116d4d8cbe39d407a5156e559d1ed0c6b7551ac816d0cc42f7b9f
+Payer           5542f6363675f0cd
+Authorizers     [5542f6363675f0cd]
+
+Proposal Key:
+    Address     5542f6363675f0cd
+    Index       0
+    Sequence    1
+
+No Payload Signatures
+
+Envelope Signature 0: 5542f6363675f0cd
+Signatures (minimized, use --include signatures)
+
+Events:
+    Index       0
+    Type        flow.StorageCapabilityControllerIssued
+    Tx ID       a9e3b330151116d4d8cbe39d407a5156e559d1ed0c6b7551ac816d0cc42f7b9f
+    Values
+                - address (Address): 0x5542f6363675f0cd
+                - id (UInt64): 3
+                - path (StoragePath): /storage/SimpleNFTNFTCollection
+                - type (Type): Type<&A.ac5b1841720e845a.SimpleNFT.Collection>()
+
+    Index       1
+    Type        flow.CapabilityPublished
+    Tx ID       a9e3b330151116d4d8cbe39d407a5156e559d1ed0c6b7551ac816d0cc42f7b9f
+    Values
+                - address (Address): 0x5542f6363675f0cd
+                - capability (Capability): Capability<&A.ac5b1841720e845a.SimpleNFT.Collection>(address: 0x5542f6363675f0cd, id: 3)
+                - path (PublicPath): /public/SimpleNFTNFTCollection
+
+
+
+Code (hidden, use --include code)
+
+Payload (hidden, use --include payload)
+
+Fee Events (hidden, use --include fee-events)
+
+🔗 View on Block Explorer:
+https://testnet.flowscan.io/tx/a9e3b330151116d4d8cbe39d407a5156e559d1ed0c6b7551ac816d0cc42f7b9f
+
+
+D:\MDG\FLOwww\Flow-testing\testing-scheduled-transactions>flow transactions send ./cadence/transactions/EmptyCollection.cdc --signer testnet-2 -n testnet
+Transaction ID: 1adf56f9ddedec1d7dd62e03e262d03582c641759c13fd3e1a71a07e64eac955
+
+Block ID        26db132d3d667cd1b959ac35804786d72c84dd1ae3703f006e2210c41697cf61
+Block Height    281735315
+Status           SEALED
+ID              1adf56f9ddedec1d7dd62e03e262d03582c641759c13fd3e1a71a07e64eac955
+Payer           b1254feb278ff012
+Authorizers     [b1254feb278ff012]
+
+Proposal Key:
+    Address     b1254feb278ff012
+    Index       0
+    Sequence    0
+
+No Payload Signatures
+
+Envelope Signature 0: b1254feb278ff012
+Signatures (minimized, use --include signatures)
+
+Events:
+    Index       0
+    Type        flow.StorageCapabilityControllerIssued
+    Tx ID       1adf56f9ddedec1d7dd62e03e262d03582c641759c13fd3e1a71a07e64eac955
+    Values
+                - address (Address): 0xb1254feb278ff012
+                - id (UInt64): 3
+                - path (StoragePath): /storage/SimpleNFTNFTCollection
+                - type (Type): Type<&A.ac5b1841720e845a.SimpleNFT.Collection>()
+
+    Index       1
+    Type        flow.CapabilityPublished
+    Tx ID       1adf56f9ddedec1d7dd62e03e262d03582c641759c13fd3e1a71a07e64eac955
+    Values
+                - address (Address): 0xb1254feb278ff012
+                - capability (Capability): Capability<&A.ac5b1841720e845a.SimpleNFT.Collection>(address: 0xb1254feb278ff012, id: 3)
+                - path (PublicPath): /public/SimpleNFTNFTCollection
+
+
+
+Code (hidden, use --include code)
+
+Payload (hidden, use --include payload)
+
+Fee Events (hidden, use --include fee-events)
+
+🔗 View on Block Explorer:
+https://testnet.flowscan.io/tx/1adf56f9ddedec1d7dd62e03e262d03582c641759c13fd3e1a71a07e64eac955
+
+
+D:\MDG\FLOwww\Flow-testing\testing-scheduled-transactions>
+
+=============================================  minting nft on testnet-1 ===================================================
+
+D:\MDG\FLOwww\Flow-testing\testing-scheduled-transactions>flow transactions send ./cadence/transactions/MintNFT.cdc 5542f6363675f0cd --signer testnet -n testnet
+Transaction ID: 39c5f47721016b36680933d76ebc52dd6f5290e1e7a2e8325487d133bd9f0175
+
+Block ID        3420ccafb68c7f05f9bbfe31c03866b164f12a2ceda495774f9a1380109afebf
+Block Height    281735487
+Status           SEALED
+ID              39c5f47721016b36680933d76ebc52dd6f5290e1e7a2e8325487d133bd9f0175
+Payer           ac5b1841720e845a
+Authorizers     [ac5b1841720e845a]
+
+Proposal Key:
+    Address     ac5b1841720e845a
+    Index       0
+    Sequence    5
+
+No Payload Signatures
+
+Envelope Signature 0: ac5b1841720e845a
+Signatures (minimized, use --include signatures)
+
+Events:
+    Index       0
+    Type        A.ac5b1841720e845a.SimpleNFT.Minted
+    Tx ID       39c5f47721016b36680933d76ebc52dd6f5290e1e7a2e8325487d133bd9f0175
+    Values
+                - accessory (({String:UInt64})?): {}
+                - armour (({String:UInt64})?): {}
+                - consumable (({String:UInt64})?): {}
+                - description (String): "A test sword"
+                - id (UInt64): 1
+                - imgURL ((String)?): "ipfs://bafybeidhmg4d7gsiby2jrsilfkntoiq2aknreeeghmgfgltjqiacecpdey"
+                - itemType (String): "Weapon"
+                - minter (Address): 0xac5b1841720e845a
+                - name (String): "Sword of Testing"
+                - rarity (String): "Common"
+                - stackable (Bool): false
+                - uuid (UInt64): 177021372232955
+                - weapon (({String:UInt64})?): {"damage": 10, "attackSpeed": 1, "criticalRate": 5, "criticalDamage": 50}
+
+    Index       1
+    Type        A.631e88ae7f1d7c20.NonFungibleToken.Deposited
+    Tx ID       39c5f47721016b36680933d76ebc52dd6f5290e1e7a2e8325487d133bd9f0175
+    Values
+                - collectionUUID (UInt64): 279275953615369
+                - id (UInt64): 1
+                - to ((Address)?): 0x5542f6363675f0cd
+                - type (String): "A.ac5b1841720e845a.SimpleNFT.NFT"
+                - uuid (UInt64): 177021372232955
+
+
+
+Code (hidden, use --include code)
+
+Payload (hidden, use --include payload)
+
+Fee Events (hidden, use --include fee-events)
+
+🔗 View on Block Explorer:
+https://testnet.flowscan.io/tx/39c5f47721016b36680933d76ebc52dd6f5290e1e7a2e8325487d133bd9f0175
+
+
+D:\MDG\FLOwww\Flow-testing\testing-scheduled-transactions>
+
+
+============================================= initializing handlers on testnet-1 ====================================================
+
+
+D:\MDG\FLOwww\Flow-testing\testing-scheduled-transactions>flow transactions send ./cadence/transactions/InitScheduler.cdc --signer testnet-1 -n testnet
+Transaction ID: 3fa86d5aa8530fc36cec3ac67e102cca4ba02288a87d9521ff4b314891e6f6a0
+
+Block ID        ce815be313eb317c211d480bd5f3a086822042578ee30310dd9598c30843fe8b
+Block Height    281735863
+Status           SEALED
+ID              3fa86d5aa8530fc36cec3ac67e102cca4ba02288a87d9521ff4b314891e6f6a0
+Payer           5542f6363675f0cd
+Authorizers     [5542f6363675f0cd]
+
+Proposal Key:
+    Address     5542f6363675f0cd
+    Index       0
+    Sequence    4
+
+No Payload Signatures
+
+Envelope Signature 0: 5542f6363675f0cd
+Signatures (minimized, use --include signatures)
+
+Events:
+    Index       0
+    Type        flow.StorageCapabilityControllerIssued
+    Tx ID       3fa86d5aa8530fc36cec3ac67e102cca4ba02288a87d9521ff4b314891e6f6a0
+    Values
+                - address (Address): 0x5542f6363675f0cd
+                - id (UInt64): 4
+                - path (StoragePath): /storage/ScheduleCallbackHandler
+                - type (Type): Type<auth(A.8c5303eaa26202d6.FlowTransactionScheduler.Execute)&{A.8c5303eaa26202d6.FlowTransactionScheduler.TransactionHandler}>()
+
+
+
+Code (hidden, use --include code)
+
+Payload (hidden, use --include payload)
+
+Fee Events (hidden, use --include fee-events)
+
+🔗 View on Block Explorer:
+https://testnet.flowscan.io/tx/3fa86d5aa8530fc36cec3ac67e102cca4ba02288a87d9521ff4b314891e6f6a0
+
+
+D:\MDG\FLOwww\Flow-testing\testing-scheduled-transactions>
+
+
+==================================== List item on marketplace ========================================================
+
+
+D:\MDG\FLOwww\Flow-testing\testing-scheduled-transactions>flow transactions send ./cadence/transactions/CreateListing.cdc 120.00 1 1000 1 10.00 --signer testnet-1 -n testnet      
+Transaction ID: 0a45a3b326bbc9aebb117f90f5f019a89eb441854594ba8b43e4fdbc424015bb
+
+Block ID        72dbf8374010d20fc1a7c30691a37aea37c0e76984ded435f3a4c1e87d10d831
+Block Height    281736103
+Status           SEALED
+ID              0a45a3b326bbc9aebb117f90f5f019a89eb441854594ba8b43e4fdbc424015bb
+Payer           5542f6363675f0cd
+Authorizers     [5542f6363675f0cd]
+
+Proposal Key:
+    Address     5542f6363675f0cd
+    Index       0
+    Sequence    5
+
+No Payload Signatures
+
+Envelope Signature 0: 5542f6363675f0cd
+Signatures (minimized, use --include signatures)
+
+Events:
+    Index       0
+    Type        A.631e88ae7f1d7c20.NonFungibleToken.Withdrawn
+    Tx ID       0a45a3b326bbc9aebb117f90f5f019a89eb441854594ba8b43e4fdbc424015bb
+    Values
+                - from ((Address)?): 0x5542f6363675f0cd
+                - id (UInt64): 1
+                - providerUUID (UInt64): 279275953615369
+                - type (String): "A.ac5b1841720e845a.SimpleNFT.NFT"
+                - uuid (UInt64): 177021372232955
+
+    Index       1
+    Type        A.631e88ae7f1d7c20.NonFungibleToken.Deposited
+    Tx ID       0a45a3b326bbc9aebb117f90f5f019a89eb441854594ba8b43e4fdbc424015bb
+    Values
+                - collectionUUID (UInt64): 185817465253944
+                - id (UInt64): 1
+                - to ((Address)?): 0xac5b1841720e845a
+                - type (String): "A.ac5b1841720e845a.SimpleNFT.NFT"
+                - uuid (UInt64): 177021372232955
+
+    Index       2
+    Type        A.ac5b1841720e845a.SimpleScheduledMarketplace.Listed
+    Tx ID       0a45a3b326bbc9aebb117f90f5f019a89eb441854594ba8b43e4fdbc424015bb
+    Values
+                - basePrice (UFix64): 10.00000000
+                - endTime (UFix64): 1758892164.00000000
+                - itemID (UInt64): 1
+                - seller (Address): 0x5542f6363675f0cd
+
+    Index       3
+    Type        A.7e60df042a9c0868.FlowToken.TokensWithdrawn
+    Tx ID       0a45a3b326bbc9aebb117f90f5f019a89eb441854594ba8b43e4fdbc424015bb
+    Values
+                - amount (UFix64): 0.00125604
+                - from ((Address)?): 0x5542f6363675f0cd
+
+    Index       4
+    Type        A.9a0766d93b6608b7.FungibleToken.Withdrawn
+    Tx ID       0a45a3b326bbc9aebb117f90f5f019a89eb441854594ba8b43e4fdbc424015bb
+    Values
+                - amount (UFix64): 0.00125604
+                - balanceAfter (UFix64): 100000.00072948
+                - from ((Address)?): 0x5542f6363675f0cd
+                - fromUUID (UInt64): 146235046653318
+                - type (String): "A.7e60df042a9c0868.FlowToken.Vault"
+                - withdrawnUUID (UInt64): 6597069924488
+
+    Index       5
+    Type        flow.StorageCapabilityControllerIssued
+    Tx ID       0a45a3b326bbc9aebb117f90f5f019a89eb441854594ba8b43e4fdbc424015bb
+    Values
+                - address (Address): 0x5542f6363675f0cd
+                - id (UInt64): 5
+                - path (StoragePath): /storage/ScheduleCallbackHandler
+                - type (Type): Type<auth(A.8c5303eaa26202d6.FlowTransactionScheduler.Execute)&{A.8c5303eaa26202d6.FlowTransactionScheduler.TransactionHandler}>()
+
+    Index       6
+    Type        A.7e60df042a9c0868.FlowToken.TokensDeposited
+    Tx ID       0a45a3b326bbc9aebb117f90f5f019a89eb441854594ba8b43e4fdbc424015bb
+    Values
+                - amount (UFix64): 0.00125604
+                - to ((Address)?): 0x8c5303eaa26202d6
+
+    Index       7
+    Type        A.9a0766d93b6608b7.FungibleToken.Deposited
+    Tx ID       0a45a3b326bbc9aebb117f90f5f019a89eb441854594ba8b43e4fdbc424015bb
+    Values
+                - amount (UFix64): 0.00125604
+                - balanceAfter (UFix64): 88921924.61203967
+                - depositedUUID (UInt64): 6597069924488
+                - to ((Address)?): 0x8c5303eaa26202d6
+                - toUUID (UInt64): 0
+                - type (String): "A.7e60df042a9c0868.FlowToken.Vault"
+
+    Index       8
+    Type        A.8c5303eaa26202d6.FlowTransactionScheduler.Scheduled
+    Tx ID       0a45a3b326bbc9aebb117f90f5f019a89eb441854594ba8b43e4fdbc424015bb
+    Values
+                - executionEffort (UInt64): 1000
+                - fees (UFix64): 0.00125604
+                - id (UInt64): 3984
+                - priority (UInt8): 1
+                - timestamp (UFix64): 1758892164.00000000
+                - transactionHandlerOwner (Address): 0x5542f6363675f0cd
+                - transactionHandlerPublicPath ((PublicPath)?): nil
+                - transactionHandlerTypeIdentifier (String): "A.ac5b1841720e845a.ScheduleCallbackHandler.Handler"
+                - transactionHandlerUUID (UInt64): 65970697825387
+
+    Index       9
+    Type        A.8c5303eaa26202d6.FlowTransactionScheduler.ScheduledTransaction.ResourceDestroyed
+    Tx ID       0a45a3b326bbc9aebb117f90f5f019a89eb441854594ba8b43e4fdbc424015bb
+    Values
+                - handlerTypeIdentifier (String): "A.ac5b1841720e845a.ScheduleCallbackHandler.Handler"
+                - id (UInt64): 3984
+                - timestamp (UFix64): 1758892164.00000000
+
+
+
+Code (hidden, use --include code)
+
+Payload (hidden, use --include payload)
+
+Fee Events (hidden, use --include fee-events)
+
+🔗 View on Block Explorer:
+https://testnet.flowscan.io/tx/0a45a3b326bbc9aebb117f90f5f019a89eb441854594ba8b43e4fdbc424015bb
+
+
+
+======================================== Place bid ==============================================
+
+D:\MDG\FLOwww\Flow-testing\testing-scheduled-transactions>flow transactions send ./cadence/transactions/PlaceBid.cdc 1 25.00 --signer testnet-2 -n testnet
+Transaction ID: 6a83f677a1708ce8d154029538751ea05b90094f7f6d4d37044e6e26614cba04
+
+Block ID        54b0c3d1848e7cb6a53353dfed4815b7edd74afa8cd4c7650d1bcb5978933dd0
+Block Height    281736275
+Status           SEALED
+ID              6a83f677a1708ce8d154029538751ea05b90094f7f6d4d37044e6e26614cba04
+Payer           b1254feb278ff012
+Authorizers     [b1254feb278ff012]
+
+Proposal Key:
+    Address     b1254feb278ff012
+    Index       0
+    Sequence    2
+
+No Payload Signatures
+
+Envelope Signature 0: b1254feb278ff012
+Signatures (minimized, use --include signatures)
+
+Events:
+    Index       0
+    Type        A.7e60df042a9c0868.FlowToken.TokensWithdrawn
+    Tx ID       6a83f677a1708ce8d154029538751ea05b90094f7f6d4d37044e6e26614cba04
+    Values
+                - amount (UFix64): 25.00000000
+                - from ((Address)?): 0xb1254feb278ff012
+
+    Index       1
+    Type        A.9a0766d93b6608b7.FungibleToken.Withdrawn
+    Tx ID       6a83f677a1708ce8d154029538751ea05b90094f7f6d4d37044e6e26614cba04
+    Values
+                - amount (UFix64): 25.00000000
+                - balanceAfter (UFix64): 99975.00199152
+                - from ((Address)?): 0xb1254feb278ff012
+                - fromUUID (UInt64): 73667279219129
+                - type (String): "A.7e60df042a9c0868.FlowToken.Vault"
+                - withdrawnUUID (UInt64): 240793046640769
+
+    Index       2
+    Type        A.ac5b1841720e845a.SimpleScheduledMarketplace.BidPlaced
+    Tx ID       6a83f677a1708ce8d154029538751ea05b90094f7f6d4d37044e6e26614cba04
+    Values
+                - amount (UFix64): 25.00000000
+                - bidder (Address): 0xb1254feb278ff012
+                - itemID (UInt64): 1
+
+
+
+Code (hidden, use --include code)
+
+Payload (hidden, use --include payload)
+
+Fee Events (hidden, use --include fee-events)
+
+🔗 View on Block Explorer:
+https://testnet.flowscan.io/tx/6a83f677a1708ce8d154029538751ea05b90094f7f6d4d37044e6e26614cba04
+
+
+============================================== logs ======================================================================
+
+
+D:\MDG\FLOwww\Flow-testing\testing-scheduled-transactions>flow scripts execute ./cadence/scripts/CheckListing.cdc -n testnet
+
+Result: {1: {"highestBidder": 0xb1254feb278ff012, "currentBid": 25.00000000, "endTime": 1758892164.00000000, "seller": 0x5542f6363675f0cd, "basePrice": 10.00000000, "tokenID": 1}}
+
+
+
+D:\MDG\FLOwww\Flow-testing\testing-scheduled-transactions>flow scripts execute ./cadence/scripts/CheckListing.cdc -n testnet
+
+Result: {}
+
+
+
+D:\MDG\FLOwww\Flow-testing\testing-scheduled-transactions>flow scripts execute ./cadence/scripts/CheckNFTPresence.cdc 0xb1254feb278ff012
+
+Result: []
+
+
+
+D:\MDG\FLOwww\Flow-testing\testing-scheduled-transactions>
