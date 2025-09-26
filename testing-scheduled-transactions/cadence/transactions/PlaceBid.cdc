@@ -1,8 +1,8 @@
-import FungibleToken from 0xee82856bf20e2aa6
-import FlowToken from 0x0ae53cb6e3f42a79
-import NonFungibleToken from 0xf8d6e0586b0a20c7
-import SimpleNFT from 0xf8d6e0586b0a20c7   // replace if different
-import AuctionHouse from 0xf8d6e0586b0a20c7   // replace with marketplace address
+import "FungibleToken"
+import "FlowToken"
+import "NonFungibleToken"
+import SimpleNFT from 0xac5b1841720e845a   // replace if different
+import SimpleScheduledMarketplace from 0xac5b1841720e845a   // replace with marketplace address
 transaction(listingID: UInt64, paymentAmount: UFix64) {
     let vaultRef: auth(FungibleToken.Withdraw) &{FungibleToken.Vault}
     let collectionRef: &SimpleNFT.Collection
@@ -15,7 +15,7 @@ transaction(listingID: UInt64, paymentAmount: UFix64) {
             from: SimpleNFT.CollectionStoragePath // Assuming this exists; if not, replace with the actual StoragePath, e.g., /storage/SimpleNFTCollection
         ) ?? panic("Missing SimpleNFT collection in buyer account. Please create & link one.")
         // 4) Call marketplace purchase. Buyer address passed so contract can route refunds, deposits, etc.
-        AuctionHouse.placeBid(
+        SimpleScheduledMarketplace.placeBid(
             listingID: listingID,
             bidder: buyer.address,
             payment: <-payment

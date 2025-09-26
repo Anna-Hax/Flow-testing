@@ -1,62 +1,21 @@
 {
 	"contracts": {
-		"Arcane": {
-			"source": "cadence/contracts/Arcane.cdc",
-			"aliases": {
-				"emulator": "f8d6e0586b0a20c7"
-			}
-		},
-		"AuctionCallbackHandler": {
-			"source": "cadence/contracts/AuctionCallbackHandler.cdc",
+		"ScheduleCallbackHandler": {
+			"source": "cadence/contracts/ScheduleCallbackHandler.cdc",
 			"aliases": {
 				"emulator": "f8d6e0586b0a20c7",
 				"testnet": "c6e616f1e50fcfab"
 			}
 		},
-		"AuctionHouse": {
-			"source": "cadence/contracts/AuctionHouse.cdc",
+		"SimpleNFT": {
+			"source": "cadence/contracts/SimpleNFT.cdc",
 			"aliases": {
 				"emulator": "f8d6e0586b0a20c7",
 				"testnet": "c6e616f1e50fcfab"
 			}
 		},
-		"FlowTransactionScheduler1": {
-			"source": "cadence/contracts/FlowTransactionScheduler1.cdc",
-			"aliases": {
-				"emulator": "f8d6e0586b0a20c7",
-				"testnet": "631e88ae7f1d7c20"
-			}
-		},
-		"HeroManager": {
-			"source": "cadence/contracts/HeroManager.cdc",
-			"aliases": {
-				"emulator": "f8d6e0586b0a20c7",
-				"testnet": "c6e616f1e50fcfab"
-			}
-		},
-		"ItemManager": {
-			"source": "cadence/contracts/ItemManager.cdc",
-			"aliases": {
-				"emulator": "f8d6e0586b0a20c7",
-				"testnet": "c6e616f1e50fcfab"
-			}
-		},
-		"MarketPlace2": {
-			"source": "cadence/contracts/MarketPlace2.cdc",
-			"aliases": {
-				"emulator": "f8d6e0586b0a20c7",
-				"testnet": "c6e616f1e50fcfab"
-			}
-		},
-		"RentItemHandler": {
-			"source": "cadence/contracts/RentItemHandler.cdc",
-			"aliases": {
-				"emulator": "f8d6e0586b0a20c7",
-				"testnet": "c6e616f1e50fcfab"
-			}
-		},
-		"RewardCronTransactionHandler": {
-			"source": "cadence/contracts/RewardCronTransactionHandler.cdc",
+		"SimpleScheduledMarketplace": {
+			"source": "cadence/contracts/SimpleScheduledMarketplace.cdc",
 			"aliases": {
 				"emulator": "f8d6e0586b0a20c7",
 				"testnet": "c6e616f1e50fcfab"
@@ -119,23 +78,9 @@
 		"testnet": "access.devnet.nodes.onflow.org:9000"
 	},
 	"accounts": {
-		"allContractsHolder": {
-			"address": "0095f13a82f1a835",
-			"key": {
-				"type": "file",
-				"location": "contract.pkey"
-			}
-		},
-		"dhruvi": {
-			"address": "e16751ab754afa70",
-			"key": {
-				"type": "file",
-				"location": "dhruvi.pkey"
-			}
-		},
-		"emu2": {
+		"emulator-2": {
 			"address": "179b6b1cb6755e31",
-			"key": "7ed820fb1ba4ffe29d6b9f2c0ce2a9699e39850e56118fa3a4ffc8b47d8e9d8d"
+			"key": "dca0b624b95eaaccd0cab6e5e8f1d62f9f45a4014e59d566d2e16010424ea692"
 		},
 		"emulator-account": {
 			"address": "f8d6e0586b0a20c7",
@@ -144,67 +89,38 @@
 				"location": "emulator-account.pkey"
 			}
 		},
-		"test-acct": {
-			"address": "179b6b1cb6755e31",
-			"key": "ab64b861cbdaf3243b38445389cb68649ec9b82ca5258f8edb7a74bde708496b"
-		},
 		"testnet": {
-			"address": "c6e616f1e50fcfab",
+			"address": "ac5b1841720e845a",
 			"key": {
 				"type": "file",
 				"location": "testnet.pkey"
 			}
 		},
-		"testnetestnet": {
-			"address": "10fb47b0b7060ec4",
+		"testnet-1": {
+			"address": "5542f6363675f0cd",
 			"key": {
 				"type": "file",
-				"location": "testnetestnet.pkey"
+				"location": "testnet-1.pkey"
+			}
+		},
+		"testnet-2": {
+			"address": "b1254feb278ff012",
+			"key": {
+				"type": "file",
+				"location": "testnet-2.pkey"
 			}
 		}
 	},
 	"deployments": {
 		"emulator": {
-			"allContractsHolder": [
-				"HeroManager"
-			],
 			"emulator-account": [
-				"ItemManager",
-				{
-					"name": "MarketPlace2",
-					"args": [
-						{
-							"value": "0.20000000",
-							"type": "UFix64"
-						}
-					]
-				},
-				"Arcane",
-				"RewardCronTransactionHandler"
+				"SimpleScheduledMarketplace"
 			]
 		},
 		"testnet": {
-			"allContractsHolder": [
-				{
-					"name": "MarketPlace2",
-					"args": [
-						{
-							"value": "0.20000000",
-							"type": "UFix64"
-						}
-					]
-				},
-				{
-					"name": "AuctionHouse",
-					"args": [
-						{
-							"value": "0.25000000",
-							"type": "UFix64"
-						}
-					]
-				},
-				"RewardCronTransactionHandler",
-				"AuctionCallbackHandler"
+			"testnet": [
+				"ScheduleCallbackHandler",
+				"SimpleScheduledMarketplace"
 			]
 		}
 	}

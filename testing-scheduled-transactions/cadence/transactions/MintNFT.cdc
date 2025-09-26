@@ -1,5 +1,5 @@
-import NonFungibleToken from 0x631e88ae7f1d7c20
-import SimpleNFT from 0x0095f13a82f1a835
+import "NonFungibleToken" //from 0x631e88ae7f1d7c20
+import SimpleNFT from 0xac5b1841720e845a 
 
   transaction(
       recipient: Address

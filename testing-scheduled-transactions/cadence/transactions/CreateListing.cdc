@@ -1,10 +1,10 @@
-import FlowTransactionScheduler from 0x8c5303eaa26202d6
-import FlowToken from 0x7e60df042a9c0868
-import FungibleToken from 0x9a0766d93b6608b7
-import ScheduleHouse from 0x0095f13a82f1a835
-import ScheduleCallbackHandler from 0x0095f13a82f1a835
-import NonFungibleToken from 0x631e88ae7f1d7c20
-import SimpleNFT from 0x0095f13a82f1a835
+import FlowTransactionScheduler from 0x8c5303eaa26202d6 
+import "FlowToken" 
+import "FungibleToken"
+import SimpleScheduledMarketplace from 0xac5b1841720e845a 
+import ScheduleCallbackHandler from 0xac5b1841720e845a 
+import "NonFungibleToken" 
+import SimpleNFT  from 0xac5b1841720e845a
 /// Schedule an increment of the Counter with a relative delay in seconds
 transaction(
     delaySeconds: UFix64,
@@ -23,7 +23,7 @@ transaction(
 
         // Pass the NFT resource and signer.address into contract
         let future = getCurrentBlock().timestamp + delaySeconds
-        let listId: UInt64 = ScheduleHouse.listItem(nft: <- nft, basePrice: price, seller: signer.address, endTime: future)
+        let listId: UInt64 = SimpleScheduledMarketplace.listItem(nft: <- nft, basePrice: price, seller: signer.address, endTime: future)
         let transactionData = ScheduleCallbackHandler.loradata(listingId: listId)
 
         let pr = priority == 0
@@ -49,32 +49,10 @@ transaction(
             ?? panic("missing FlowToken vault")
         let fees <- vaultRef.withdraw(amount: est.flowFee ?? 0.0) as! @FlowToken.Vault
 
-        if !signer.storage.check<@{FlowTransactionSchedulerUtils.Manager}>(from: FlowTransactionSchedulerUtils.managerStoragePath) {
-            let manager <- FlowTransactionSchedulerUtils.createManager()
-            signer.storage.save(<-manager, to: FlowTransactionSchedulerUtils.managerStoragePath)
+        let handlerCap = signer.capabilities.storage
+            .issue<auth(FlowTransactionScheduler.Execute) &{FlowTransactionScheduler.TransactionHandler}>(/storage/ScheduleCallbackHandler)
 
-            // create a public capability to the scheduled transaction manager
-            let managerRef = signer.capabilities.storage.issue<&{FlowTransactionSchedulerUtils.Manager}>(FlowTransactionSchedulerUtils.managerStoragePath)
-            signer.capabilities.publish(managerRef, at: FlowTransactionSchedulerUtils.managerPublicPath)
-        }
-
-        var handlerCap: Capability<auth(FlowTransactionScheduler.Execute) &{FlowTransactionScheduler.TransactionHandler}>? = nil
-
-        if let cap = signer.capabilities.storage
-                            .getControllers(forPath: /storage/ScheduleCallbackHandler)[0]
-                            .capability as? Capability<auth(FlowTransactionScheduler.Execute) &{FlowTransactionScheduler.TransactionHandler}> {
-            handlerCap = cap
-        } else {
-            handlerCap = signer.capabilities.storage
-                            .getControllers(forPath: /storage/ScheduleCallbackHandler)[1]
-                            .capability as! Capability<auth(FlowTransactionScheduler.Execute) &{FlowTransactionScheduler.TransactionHandler}>
-        }
-
-
-        let manager = ScheduleCallbackHandler.account.storage.borrow<auth(FlowTransactionSchedulerUtils.Owner) &{FlowTransactionSchedulerUtils.Manager}>(from: FlowTransactionSchedulerUtils.managerStoragePath)
-            ?? panic("Could not borrow a Manager reference from \(FlowTransactionSchedulerUtils.managerStoragePath)")
-
-        manager.schedule(
+        let receipt <- FlowTransactionScheduler.schedule(
             handlerCap: handlerCap,
             data: transactionData,
             timestamp: future,
@@ -83,8 +61,9 @@ transaction(
             fees: <-fees
         )
 
-        log("Scheduled transaction at \(future)")
+        log("Scheduled transaction id: ".concat(receipt.id.toString()).concat(" at ").concat(receipt.timestamp.toString()))
+        
+        destroy receipt
     }
 }
-
 
